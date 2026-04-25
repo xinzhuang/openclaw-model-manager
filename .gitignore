@@ -1,0 +1,37 @@
+# Dependencies
+node_modules/
+package-lock.json
+pnpm-lock.yaml
+bun.lock
+bun.lockb
+
+# Environment
+.env
+.env.*
+
+# Build output
+dist/
+dist-runtime/
+.tsbuildinfo
+coverage/
+
+# OS / Editor
+.DS_Store
+**/.DS_Store
+.idea/
+.vscode/
+
+# CLI runtime
+.omm.pid
+.ocr.pid
+
+# Temp / Local
+tmp/
+.local/
+.memory/
+.artifacts/
+test-results/
+
+# Logs
+*.log
+npm-debug.log*

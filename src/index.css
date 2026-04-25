@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --color-background: oklch(0.98 0.002 280);
+  --color-foreground: oklch(0.2 0.005 280);
+  --color-card: oklch(1 0 0);
+  --color-card-foreground: oklch(0.2 0.005 280);
+  --color-popover: oklch(1 0 0);
+  --color-popover-foreground: oklch(0.2 0.005 280);
+  --color-primary: oklch(0.48 0.16 275);
+  --color-primary-foreground: oklch(0.98 0.002 280);
+  --color-secondary: oklch(0.96 0.004 280);
+  --color-secondary-foreground: oklch(0.2 0.005 280);
+  --color-muted: oklch(0.96 0.004 280);
+  --color-muted-foreground: oklch(0.55 0.01 280);
+  --color-accent: oklch(0.94 0.02 280);
+  --color-accent-foreground: oklch(0.2 0.005 280);
+  --color-destructive: oklch(0.62 0.2 25);
+  --color-destructive-foreground: oklch(0.98 0.002 280);
+  --color-border: oklch(0.9 0.005 280 / 50%);
+  --color-input: oklch(0.9 0.005 280 / 50%);
+  --color-ring: oklch(0.48 0.16 275);
+  --color-chart-1: oklch(0.65 0.2 275);
+  --color-chart-2: oklch(0.6 0.15 180);
+  --color-chart-3: oklch(0.7 0.12 350);
+  --color-chart-4: oklch(0.55 0.18 240);
+  --color-chart-5: oklch(0.5 0.22 140);
+}
+
+.dark {
+  --color-background: oklch(0.12 0.005 280);
+  --color-foreground: oklch(0.95 0.005 280);
+  --color-card: oklch(0.15 0.005 280);
+  --color-card-foreground: oklch(0.95 0.005 280);
+  --color-popover: oklch(0.15 0.005 280);
+  --color-popover-foreground: oklch(0.95 0.005 280);
+  --color-primary: oklch(0.65 0.18 275);
+  --color-primary-foreground: oklch(0.12 0.005 280);
+  --color-secondary: oklch(0.2 0.005 280);
+  --color-secondary-foreground: oklch(0.95 0.005 280);
+  --color-muted: oklch(0.2 0.005 280);
+  --color-muted-foreground: oklch(0.65 0.01 280);
+  --color-accent: oklch(0.2 0.008 280);
+  --color-accent-foreground: oklch(0.95 0.005 280);
+  --color-destructive: oklch(0.55 0.22 25);
+  --color-destructive-foreground: oklch(0.95 0.005 280);
+  --color-border: oklch(1 0.01 280 / 15%);
+  --color-input: oklch(1 0.01 280 / 15%);
+  --color-ring: oklch(0.65 0.18 275);
+  --color-chart-1: oklch(0.65 0.2 275);
+  --color-chart-2: oklch(0.6 0.15 180);
+  --color-chart-3: oklch(0.7 0.12 350);
+  --color-chart-4: oklch(0.55 0.18 240);
+  --color-chart-5: oklch(0.5 0.22 140);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    background-image:
+      radial-gradient(circle at 20% 50%, oklch(0.95 0.02 275 / 30%) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, oklch(0.95 0.02 180 / 20%) 0%, transparent 50%);
+  }
+
+  .dark body {
+    background-image:
+      radial-gradient(circle at 20% 50%, oklch(0.15 0.02 275 / 20%) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, oklch(0.15 0.02 180 / 15%) 0%, transparent 50%);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-mono font-medium tracking-tight;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-muted-foreground/30;
+    border-radius: 3px;
+    transition: background-color 0.2s ease;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground/50;
+  }
+
+  ::-webkit-scrollbar-corner {
+    @apply bg-transparent;
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: oklch(0.55 0.01 280 / 50%) transparent;
+  }
+
+  .dark * {
+    scrollbar-color: oklch(0.65 0.01 280 / 50%) transparent;
+  }
+}
