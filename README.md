@@ -35,23 +35,14 @@
 
 ### 安装
 
-**方式 1：全局安装（推荐）**
-
-```bash
-npm install -g xinzhuang/openclaw-model-manager
-```
-
-无需 clone，安装后 `omm` 命令直接可用。
-
-**方式 2：克隆到本地**
-
 ```bash
 git clone https://github.com/xinzhuang/openclaw-model-manager.git
 cd openclaw-model-manager
 npm install
+npm link
 ```
 
-适合二次开发，可通过 `npm run dev` 启动开发模式（热重载）。此方式下命令行需使用 `npx omm` 前缀，或执行 `npx omm install` 注册全局 `omm` 命令。
+安装后 `omm` 命令全局可用。如需开发模式（热重载），可使用 `npm run dev` 启动。
 
 ### 使用
 
@@ -60,8 +51,6 @@ omm start    # 启动服务器并打开浏览器
 omm stop     # 停止运行中的服务器
 omm status   # 查看服务器状态
 ```
-
-全局安装用户直接使用 `omm`；本地 clone 用户使用 `npx omm`（如 `npx omm start`）。
 
 ## 项目架构
 
@@ -196,23 +185,14 @@ A visual configuration manager for [OpenClaw](https://github.com/openclaw/opencl
 
 ### Installation
 
-**Option 1: Global install (recommended)**
-
-```bash
-npm install -g xinzhuang/openclaw-model-manager
-```
-
-No clone needed — the `omm` command is available immediately after install.
-
-**Option 2: Clone locally**
-
 ```bash
 git clone https://github.com/xinzhuang/openclaw-model-manager.git
 cd openclaw-model-manager
 npm install
+npm link
 ```
 
-Best for contributing. Start dev mode with hot-reload via `npm run dev`. Use `npx omm` prefix for CLI commands, or run `npx omm install` to register the global `omm` command.
+The `omm` command is globally available after install. For development mode with hot-reload, use `npm run dev`.
 
 ### Usage
 
@@ -221,8 +201,6 @@ omm start    # Start server and open browser
 omm stop     # Stop the running server
 omm status   # Check server status
 ```
-
-Global install users use `omm` directly; local clone users use `npx omm` (e.g. `npx omm start`).
 
 ## Architecture
 
