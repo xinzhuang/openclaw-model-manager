@@ -33,35 +33,35 @@
 
 ## 快速开始
 
-### 方式 1：直接通过 npx 运行（无需 clone）
+### 安装
+
+**方式 1：全局安装（推荐）**
 
 ```bash
-npx github:xinzhuang/openclaw-model-manager
+npm install -g xinzhuang/openclaw-model-manager
 ```
 
-直接从 GitHub 下载并运行最新代码，无需本地安装。
+无需 clone，安装后 `omm` 命令直接可用。
 
-### 方式 2：克隆到本地运行
+**方式 2：克隆到本地**
 
 ```bash
 git clone https://github.com/xinzhuang/openclaw-model-manager.git
 cd openclaw-model-manager
 npm install
-npm run dev
 ```
 
-同时启动 Express 后端（端口 3457）和 Vite 开发服务器（端口 7123，自动代理 `/api` 到后端）。
+适合二次开发，可通过 `npm run dev` 启动开发模式（热重载）。此方式下命令行需使用 `npx omm` 前缀，或执行 `npx omm install` 注册全局 `omm` 命令。
 
-### CLI 命令
-
-执行 `npm install` 后，可使用 `omm` CLI：
+### 使用
 
 ```bash
-npx omm start    # 启动服务器并打开浏览器
-npx omm stop     # 停止运行中的服务器
-npx omm status   # 查看服务器状态
-npx omm install  # 全局安装 'omm' 命令（通过 npm link）
+omm start    # 启动服务器并打开浏览器
+omm stop     # 停止运行中的服务器
+omm status   # 查看服务器状态
 ```
+
+全局安装用户直接使用 `omm`；本地 clone 用户使用 `npx omm`（如 `npx omm start`）。
 
 ## 项目架构
 
@@ -194,35 +194,35 @@ A visual configuration manager for [OpenClaw](https://github.com/openclaw/opencl
 
 ## Quick Start
 
-### Option 1: Run directly via npx (no clone needed)
+### Installation
+
+**Option 1: Global install (recommended)**
 
 ```bash
-npx github:xinzhuang/openclaw-model-manager
+npm install -g xinzhuang/openclaw-model-manager
 ```
 
-This downloads and runs the latest code from GitHub — no local installation required.
+No clone needed — the `omm` command is available immediately after install.
 
-### Option 2: Clone and run locally
+**Option 2: Clone locally**
 
 ```bash
 git clone https://github.com/xinzhuang/openclaw-model-manager.git
 cd openclaw-model-manager
 npm install
-npm run dev
 ```
 
-This starts both the Express backend (port 3457) and the Vite dev server (port 7123, proxies `/api` to backend).
+Best for contributing. Start dev mode with hot-reload via `npm run dev`. Use `npx omm` prefix for CLI commands, or run `npx omm install` to register the global `omm` command.
 
-### CLI Usage
-
-After `npm install`, you can use the `omm` CLI:
+### Usage
 
 ```bash
-npx omm start    # Start server and open browser
-npx omm stop     # Stop the running server
-npx omm status   # Check server status
-npx omm install  # Install 'omm' command globally via npm link
+omm start    # Start server and open browser
+omm stop     # Stop the running server
+omm status   # Check server status
 ```
+
+Global install users use `omm` directly; local clone users use `npx omm` (e.g. `npx omm start`).
 
 ## Architecture
 

@@ -14,7 +14,7 @@ app.use("/api", configRoutes)
 if (process.env.NODE_ENV === "production") {
   const distPath = new URL("../dist", import.meta.url).pathname
   app.use(express.static(distPath))
-  app.get("*", (_req, res) => {
+  app.get("{*path}", (_req, res) => {
     res.sendFile(path.join(distPath, "index.html"))
   })
 }

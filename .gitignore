@@ -10,8 +10,12 @@ bun.lockb
 .env.*
 
 # Build output
-dist/
 dist-runtime/
+
+# dist/ is tracked for npx github: usage (pre-built single-file frontend)
+# Only track the built artifact, ignore everything else in dist/
+dist/*
+!dist/index.html
 .tsbuildinfo
 coverage/
 
