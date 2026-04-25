@@ -33,34 +33,23 @@
 
 ## 快速开始
 
-### 方式 1：直接通过 npx 运行（无需 clone）
-
-```bash
-npx github:xinzhuang/openclaw-model-manager
-```
-
-直接从 GitHub 下载并运行最新代码，无需本地安装。
-
-### 方式 2：克隆到本地运行
+### 安装
 
 ```bash
 git clone https://github.com/xinzhuang/openclaw-model-manager.git
 cd openclaw-model-manager
 npm install
-npm run dev
+npm link
 ```
 
-同时启动 Express 后端（端口 3457）和 Vite 开发服务器（端口 7123，自动代理 `/api` 到后端）。
+安装后 `omm` 命令全局可用。如需开发模式（热重载），可使用 `npm run dev` 启动。
 
-### CLI 命令
-
-执行 `npm install` 后，可使用 `omm` CLI：
+### 使用
 
 ```bash
-npx omm start    # 启动服务器并打开浏览器
-npx omm stop     # 停止运行中的服务器
-npx omm status   # 查看服务器状态
-npx omm install  # 全局安装 'omm' 命令（通过 npm link）
+omm start    # 启动服务器并打开浏览器
+omm stop     # 停止运行中的服务器
+omm status   # 查看服务器状态
 ```
 
 ## 项目架构
@@ -194,34 +183,23 @@ A visual configuration manager for [OpenClaw](https://github.com/openclaw/opencl
 
 ## Quick Start
 
-### Option 1: Run directly via npx (no clone needed)
-
-```bash
-npx github:xinzhuang/openclaw-model-manager
-```
-
-This downloads and runs the latest code from GitHub — no local installation required.
-
-### Option 2: Clone and run locally
+### Installation
 
 ```bash
 git clone https://github.com/xinzhuang/openclaw-model-manager.git
 cd openclaw-model-manager
 npm install
-npm run dev
+npm link
 ```
 
-This starts both the Express backend (port 3457) and the Vite dev server (port 7123, proxies `/api` to backend).
+The `omm` command is globally available after install. For development mode with hot-reload, use `npm run dev`.
 
-### CLI Usage
-
-After `npm install`, you can use the `omm` CLI:
+### Usage
 
 ```bash
-npx omm start    # Start server and open browser
-npx omm stop     # Stop the running server
-npx omm status   # Check server status
-npx omm install  # Install 'omm' command globally via npm link
+omm start    # Start server and open browser
+omm stop     # Stop the running server
+omm status   # Check server status
 ```
 
 ## Architecture

@@ -1,11 +1,14 @@
 #!/usr/bin/env tsx
 import { spawn, execSync } from "node:child_process"
 import { readFileSync, writeFileSync, unlinkSync, existsSync } from "node:fs"
-import { resolve, dirname } from "node:path"
+import { resolve, dirname, join } from "node:path"
 import { fileURLToPath } from "node:url"
+import { createRequire } from "node:module"
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
-const PROJECT_ROOT = resolve(__dirname, "..")
+const PROJECT_ROOT = process.env.PROJECT_ROOT
+  ? resolve(process.env.PROJECT_ROOT)
+  : resolve(__dirname, "..")
 const PID_FILE = resolve(PROJECT_ROOT, ".omm.pid")
 const PORT = process.env.PORT || 3457
 
@@ -15,6 +18,17 @@ const color = {
   yellow: (s: string) => `\x1b[33m${s}\x1b[0m`,
   dim: (s: string) => `\x1b[2m${s}\x1b[0m`,
   bold: (s: string) => `\x1b[1m${s}\x1b[0m`,
+}
+
+function resolveBin(name: string, require: ReturnType<typeof createRequire>): string {
+  try {
+    const pkgJson = require.resolve(`${name}/package.json`, { paths: [PROJECT_ROOT] })
+    if (name === "tsx") return join(pkgJson, "..", "dist", "cli.mjs")
+    try { return require.resolve(`${name}/cli.js`, { paths: [PROJECT_ROOT] }) } catch {}
+    return join(PROJECT_ROOT, "node_modules", ".bin", name)
+  } catch {
+    return join(PROJECT_ROOT, "node_modules", ".bin", name)
+  }
 }
 
 function readPid(): number | null {
@@ -81,6 +95,11 @@ async function cmdInstall() {
 
 const VITE_PORT = 7123
 const FRONTEND_URL = `http://localhost:${VITE_PORT}`
+const PROD_URL = `http://localhost:${PORT}`
+
+function hasDist(): boolean {
+  return existsSync(resolve(PROJECT_ROOT, "dist", "index.html"))
+}
 
 async function cmdStart() {
   const existing = readPid()
@@ -89,14 +108,15 @@ async function cmdStart() {
     return
   }
 
-  const isDev = process.env.NODE_ENV !== "production"
-  const useConcurrent = isDev
+  const useDev = process.env.NODE_ENV !== "production" && !hasDist()
 
-  if (useConcurrent) {
-    // Start both backend + frontend via concurrently (dev mode)
-    const concurrently = resolve(PROJECT_ROOT, "node_modules", ".bin", "concurrently")
-    const tsxBin = resolve(PROJECT_ROOT, "node_modules", ".bin", "tsx")
-    const viteBin = resolve(PROJECT_ROOT, "node_modules", ".bin", "vite")
+  if (useDev) {
+    // Dev mode: start backend + frontend via concurrently
+    const require = createRequire(join(PROJECT_ROOT, "package.json"))
+    const concurrently = resolveBin("concurrently", require)
+    const tsxBin = resolveBin("tsx", require)
+    const viteBin = resolveBin("vite", require)
+
     const child = spawn(concurrently, [
       "--names", "api,ui",
       "--prefix-colors", "cyan,magenta",
@@ -111,10 +131,8 @@ async function cmdStart() {
 
     child.stdout?.on("data", (chunk: Buffer) => process.stdout.write(chunk))
     child.stderr?.on("data", (chunk: Buffer) => process.stderr.write(chunk))
-
     writeFileSync(PID_FILE, String(child.pid))
 
-    // Wait for Vite to be ready
     let ready = false
     for (let i = 0; i < 60; i++) {
       await new Promise((r) => setTimeout(r, 500))
@@ -138,9 +156,9 @@ async function cmdStart() {
     return
   }
 
-  // Production: start only the backend (serves built frontend)
+  // Production mode: backend serves built frontend (or dev fallback)
   const cmd = process.execPath
-  const args = [resolve(__dirname, "index.js")]
+  const args = [resolve(PROJECT_ROOT, "node_modules", ".bin", "tsx"), resolve(PROJECT_ROOT, "server", "index.ts")]
   const child = spawn(cmd, args, {
     detached: true,
     stdio: ["ignore", "pipe", "pipe"],
@@ -148,7 +166,6 @@ async function cmdStart() {
   })
 
   child.stderr?.on("data", (chunk: Buffer) => process.stderr.write(chunk))
-
   writeFileSync(PID_FILE, String(child.pid))
 
   await new Promise((r) => setTimeout(r, 500))
@@ -160,8 +177,8 @@ async function cmdStart() {
 
   child.unref()
   console.log(color.green(`OpenClaw Model Manager started (PID ${child.pid})`))
-  console.log(color.dim(`  ${FRONTEND_URL}`))
-  openBrowser(FRONTEND_URL)
+  console.log(color.dim(`  ${PROD_URL}`))
+  openBrowser(PROD_URL)
 }
 
 async function cmdStop() {

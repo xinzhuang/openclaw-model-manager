@@ -7,21 +7,25 @@ import { createRequire } from "node:module"
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const projectRoot = resolve(__dirname, "..")
 
-// Resolve tsx binary from local node_modules
 const require = createRequire(import.meta.url)
-let tsxBin
-try {
-  const tsxPkg = require.resolve("tsx/package.json", { paths: [projectRoot] })
-  tsxBin = join(tsxPkg, "..", "dist", "cli.mjs")
-} catch {
-  tsxBin = join(projectRoot, "node_modules", ".bin", "tsx")
+
+function resolveBin(name) {
+  try {
+    const pkgJson = require.resolve(`${name}/package.json`, { paths: [projectRoot] })
+    if (name === "tsx") return join(pkgJson, "..", "dist", "cli.mjs")
+    try { return require.resolve(`${name}/cli.js`, { paths: [projectRoot] }) } catch {}
+    return join(projectRoot, "node_modules", ".bin", name)
+  } catch {
+    return join(projectRoot, "node_modules", ".bin", name)
+  }
 }
 
+const tsxBin = resolveBin("tsx")
 const cliFile = join(projectRoot, "server", "cli.ts")
 
 const child = spawn(process.execPath, [tsxBin, cliFile, ...process.argv.slice(2)], {
   stdio: "inherit",
-  env: { ...process.env, NODE_OPTIONS: "" },
+  env: { ...process.env, NODE_OPTIONS: "", PROJECT_ROOT: projectRoot },
 })
 
 child.on("exit", (code) => process.exit(code ?? 1))
