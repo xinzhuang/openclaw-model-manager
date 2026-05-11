@@ -50,7 +50,7 @@ export interface ModelDefinition {
   id: string
   name?: string
   api?: ApiType
-  reason_ing?: boolean
+  reasoning?: boolean
   input?: ("text" | "image")[]
   contextWindow?: number
   contextTokens?: number
