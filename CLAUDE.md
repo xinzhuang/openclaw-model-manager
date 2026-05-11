@@ -40,7 +40,7 @@ No test framework is configured. No lint/format scripts are set up.
 
 - `OpenClawConfig` — Root config shape mirroring openclaw.json
 - `ProviderConfig` — Per-provider config: `baseUrl`, `apiKey`, `api` (ApiType), `models[]`
-- `ModelDefinition` — Model entry with `id`, `name`, `reason_ing`, `input[]` (e.g., `["text", "image"]`), `contextWindow`, `maxTokens`, `cost`, `compat{}`
+- `ModelDefinition` — Model entry with `id`, `name`, `reasoning`, `input[]` (e.g., `["text", "image"]`), `contextWindow`, `maxTokens`, `cost`, `compat{}`
 - `ApiType` — Union of supported API types: `"openai-completions" | "anthropic-messages" | "google-generative-ai"` etc.
 
 ### Component Structure

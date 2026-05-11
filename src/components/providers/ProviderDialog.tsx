@@ -33,7 +33,7 @@ type ProviderType = "builtin" | "custom"
 interface ModelFormData {
   id: string
   name: string
-  reason_ing: boolean
+  reasoning: boolean
   vision: boolean
   contextWindow: string
   maxTokens: string
@@ -42,7 +42,7 @@ interface ModelFormData {
 const emptyModelForm = (): ModelFormData => ({
   id: "",
   name: "",
-  reason_ing: false,
+  reasoning: false,
   vision: false,
   contextWindow: "",
   maxTokens: "",
@@ -172,7 +172,7 @@ export function ProviderDialog({ open, onOpenChange, providerId, providers, onSa
       setModelForm({
         id: m.id,
         name: m.name ?? "",
-        reason_ing: m.reason_ing ?? false,
+        reasoning: m.reasoning ?? false,
         vision: m.input?.includes("image") ?? false,
         contextWindow: m.contextWindow != null ? String(m.contextWindow) : "",
         maxTokens: m.maxTokens != null ? String(m.maxTokens) : "",
@@ -200,7 +200,7 @@ export function ProviderDialog({ open, onOpenChange, providerId, providers, onSa
 
     const def: ModelDefinition = { id: modelId }
     if (modelForm.name.trim()) def.name = modelForm.name.trim()
-    if (modelForm.reason_ing) def.reason_ing = true
+    if (modelForm.reasoning) def.reasoning = true
     if (modelForm.vision) def.input = ["text", "image"]
     if (modelForm.contextWindow) def.contextWindow = Number(modelForm.contextWindow) || undefined
     if (modelForm.maxTokens) def.maxTokens = Number(modelForm.maxTokens) || undefined
@@ -383,8 +383,8 @@ export function ProviderDialog({ open, onOpenChange, providerId, providers, onSa
             <div className="flex items-center justify-between">
               <Label>{t("models.reasoning")}</Label>
               <Switch
-                checked={modelForm.reason_ing}
-                onCheckedChange={(checked) => setModelForm((f) => ({ ...f, reason_ing: checked }))}
+                checked={modelForm.reasoning}
+                onCheckedChange={(checked) => setModelForm((f) => ({ ...f, reasoning: checked }))}
               />
             </div>
             <div className="flex items-center justify-between">

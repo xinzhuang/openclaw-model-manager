@@ -158,7 +158,8 @@ async function cmdStart() {
 
   // Production mode: backend serves built frontend (or dev fallback)
   const cmd = process.execPath
-  const args = [resolve(PROJECT_ROOT, "node_modules", ".bin", "tsx"), resolve(PROJECT_ROOT, "server", "index.ts")]
+  const tsxBin = resolveBin("tsx", createRequire(join(PROJECT_ROOT, "package.json")))
+  const args = [tsxBin, resolve(PROJECT_ROOT, "server", "index.ts")]
   const child = spawn(cmd, args, {
     detached: true,
     stdio: ["ignore", "pipe", "pipe"],
