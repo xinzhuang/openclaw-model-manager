@@ -30,6 +30,7 @@
 - **双语界面** — 支持中英文切换（English / 中文），基于 i18n
 - **单文件构建** — 生产构建输出单个 HTML 文件，所有资源内联（via `vite-plugin-singlefile`）
 - **原子化配置写入** — 安全的配置文件更新，自动备份（保留最近 5 份）并支持乐观锁机制
+- **CLI 模型切换** — 通过 `omm model` 命令在终端交互式切换全局默认模型，无需打开浏览器
 
 ## 快速开始
 
@@ -50,6 +51,7 @@ npm link
 omm start    # 启动服务器并打开浏览器
 omm stop     # 停止运行中的服务器
 omm status   # 查看服务器状态
+omm model    # 交互式切换全局默认模型
 ```
 
 ## 项目架构
@@ -97,6 +99,16 @@ omm status   # 查看服务器状态
 | `npm run build` | 构建生产版本（单 HTML 文件，输出到 `dist/`） |
 | `npm start` | 生产模式：Express 同时提供前端 + API |
 | `npm run cli` | 执行 CLI 命令（如 `npm run cli -- start`） |
+
+### CLI 命令
+
+| 命令 | 说明 |
+|------|------|
+| `omm start` | 启动服务器并打开浏览器 |
+| `omm stop` | 停止运行中的服务器 |
+| `omm status` | 查看服务器状态 |
+| `omm model` | 交互式切换全局默认模型 |
+| `omm install` | 通过 npm link 全局安装 omm 命令 |
 
 ## 配置说明
 
@@ -180,6 +192,7 @@ A visual configuration manager for [OpenClaw](https://github.com/openclaw/opencl
 - **Bilingual UI** — English and Chinese (中文) support via i18n
 - **Single-File Build** — Production build outputs a single HTML file with inlined assets (via `vite-plugin-singlefile`)
 - **Atomic Config Writes** — Safe configuration file updates with automatic backups (keeps last 5) and optimistic locking
+- **CLI Model Switching** — Switch the global default model interactively via `omm model` — no browser needed
 
 ## Quick Start
 
@@ -200,6 +213,7 @@ The `omm` command is globally available after install. For development mode with
 omm start    # Start server and open browser
 omm stop     # Stop the running server
 omm status   # Check server status
+omm model    # Interactively switch the global default model
 ```
 
 ## Architecture
@@ -247,6 +261,16 @@ See [docs/model-provider-config-logic.md](docs/model-provider-config-logic.md) f
 | `npm run build` | Build production version (single HTML in `dist/`) |
 | `npm start` | Production mode: Express serves built frontend + API |
 | `npm run cli` | Run CLI command (e.g. `npm run cli -- start`) |
+
+### CLI Commands
+
+| Command | Description |
+|---------|-------------|
+| `omm start` | Start server and open browser |
+| `omm stop` | Stop the running server |
+| `omm status` | Check server status |
+| `omm model` | Interactively switch the global default model |
+| `omm install` | Install `omm` command globally via npm link |
 
 ## Configuration
 

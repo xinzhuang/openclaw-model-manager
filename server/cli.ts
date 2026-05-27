@@ -4,6 +4,7 @@ import { readFileSync, writeFileSync, unlinkSync, existsSync } from "node:fs"
 import { resolve, dirname, join } from "node:path"
 import { fileURLToPath } from "node:url"
 import { createRequire } from "node:module"
+import { cmdModel } from "./commands/model.js"
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const PROJECT_ROOT = process.env.PROJECT_ROOT
@@ -74,6 +75,7 @@ ${color.bold("Commands:")}
   start     Start the OpenClaw Model Manager server
   stop      Stop the OpenClaw Model Manager server
   status    Show OpenClaw Model Manager server status
+  model     Switch the global default model interactively
   install   Install 'omm' command globally via npm link
   help      Show this help message
 
@@ -234,7 +236,7 @@ async function cmdStatus() {
 }
 
 const commands: Record<string, () => void | Promise<void>> = {
-  start: cmdStart, stop: cmdStop, status: cmdStatus, install: cmdInstall, help: showHelp,
+  start: cmdStart, stop: cmdStop, status: cmdStatus, model: cmdModel, install: cmdInstall, help: showHelp,
 }
 const sub = process.argv[2]
 
