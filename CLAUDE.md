@@ -14,7 +14,8 @@ npm run dev:ui           # Vite dev server only (port 7123, proxies /api to :345
 npm run dev:server       # Express backend only (port 3457, watches with tsx)
 npm run build            # Vite build → single HTML file in dist/
 npm start                # Production: Express serves built frontend + API
-npx ocr start           # CLI: start server (after npm link), opens browser
+omm start               # CLI: start server (after npm link), opens browser
+omm model               # CLI: interactive global model selector
 ```
 
 No test framework is configured. No lint/format scripts are set up.
@@ -27,7 +28,8 @@ No test framework is configured. No lint/format scripts are set up.
 - `server/index.ts` — Express app, mounts routes, serves built frontend in production
 - `server/routes/config.ts` — All API routes under `/api/config`. Handles global config (openclaw.json) and per-agent model configs (agents/{id}/agent/models.json)
 - `server/utils/config.ts` — File I/O for `~/.openclaw/openclaw.json`. Uses atomic writes (tmp → rename), creates backups (keeps last 5), enforces 0o600 permissions, and implements optimistic locking via SHA-256 hash (`baseHash`)
-- `server/cli.ts` — CLI tool (`ocr` command) for start/stop/status/install
+- `server/cli.ts` — CLI tool (`omm` command) for start/stop/status/model/install
+- `server/commands/model.ts` — `omm model` interactive selector: reads providers from config, presents `@inquirer/prompts` select, writes to `agents.defaults.model` via `patchConfig`
 
 **Frontend** (`src/`):
 - `src/App.tsx` — Root: wraps everything in `ConfigProvider`, renders `Dashboard`
